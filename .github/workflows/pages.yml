@@ -1,14 +1,13 @@
 name: Publier sur GitHub Pages
 
-# Déploiement du site statique depuis la branche de développement.
-# Pages doit être activé sur le dépôt avec la source « GitHub Actions »
-# (Settings → Pages). La création du site n'est pas tentée ici : le jeton du
-# workflow n'a pas ce droit.
+# Déploiement du site statique sur GitHub Pages.
+# Uniquement depuis main : l'environnement github-pages n'autorise pas les
+# déploiements depuis les autres branches. Le travail se fait sur la branche
+# de développement, la publication se fait à la fusion.
 
 on:
   push:
     branches:
-      - claude/microtaches-site-full-0p25st
       - main
   workflow_dispatch:
 
