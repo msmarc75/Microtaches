@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portefeuille — Tacheo</title>
+<meta name="description" content="Solde, historique des gains et demandes de retrait sur votre compte Tacheo.">
+<meta name="theme-color" content="#5b3df5">
+<link rel="canonical" href="https://msmarc75.github.io/Microtaches/portefeuille.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Tacheo">
+<meta property="og:title" content="Portefeuille — Tacheo">
+<meta property="og:description" content="Solde, historique des gains et demandes de retrait sur votre compte Tacheo.">
+<meta property="og:url" content="https://msmarc75.github.io/Microtaches/portefeuille.html">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%235b3df5'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-size='17' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="assets/css/style.css">
+<!-- Police chargée sans bloquer le rendu : en cas d'indisponibilité, la pile
+     système déclarée dans la feuille de styles prend le relais. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
+      media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"></noscript>
+</head>
+<body data-guard="active">
+<a class="skip-link" href="#main">Aller au contenu</a>
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true">T</span>
+      <span>Tacheo</span>
+    </a>
+    <button class="nav-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false"><span></span></button>
+    <nav class="nav-links" aria-label="Navigation principale">
+      <a href="index.html#methode">Comment ça marche</a>
+      <a href="missions.html">Types de missions</a>
+      <a href="index.html#avantages">Avantages</a>
+      <a href="faq.html">FAQ</a>
+    </nav>
+    <div class="nav-right">
+      <a class="btn btn-quiet hide" data-when="guest" href="connexion.html">Connexion</a>
+      <a class="btn btn-primary hide" data-when="guest" href="inscription.html">Déposer ma candidature</a>
+      <a class="btn btn-ghost hide" data-when="logged" href="compte.html">Mon espace</a>
+      <a class="btn btn-quiet hide" data-when="logged" href="#" data-action="logout">Déconnexion</a>
+    </div>
+  </div>
+</header>
+<main id="main">
+<section class="app-shell">
+  <div class="wrap">
+    <div class="app-head"><h1>Portefeuille</h1></div>
+    <nav class="app-tabs" aria-label="Espace membre"><a href="compte.html">Tableau de bord</a><a href="taches.html">Missions disponibles</a><a href="portefeuille.html" class="is-active">Portefeuille</a></nav>
+    <div class="app-grid">
+      <div>
+        <div class="kpi-row">
+          <div class="kpi"><small>Solde disponible</small><b id="kpi-credits">—</b><span class="small muted" id="kpi-euros">—</span></div>
+          <div class="kpi"><small>Total gagné</small><b id="kpi-total">—</b><span class="small muted">depuis l'inscription</span></div>
+          <div class="kpi"><small>Missions validées</small><b id="kpi-tasks">—</b><span class="small muted">lots terminés</span></div>
+        </div>
+        <div class="card">
+          <h2 style="font-size:1.15rem">Historique des opérations</h2>
+          <div id="history"></div>
+        </div>
+      </div>
+      <aside>
+        <div class="card">
+          <h3 style="font-size:1.05rem">Demander un retrait</h3>
+          <p class="small muted">Seuil minimal : 2 500 crédits (25,00 €). Aucun frais en zone SEPA.</p>
+          <form id="payout-form" novalidate>
+            <div class="field">
+              <label for="amount">Montant en crédits</label>
+              <input type="number" id="amount" name="amount" min="2500" step="100" placeholder="2500">
+            </div>
+            <div class="field">
+              <label for="method">Moyen de versement</label>
+              <select id="method" name="method">
+                <option>Virement SEPA</option>
+                <option>Portefeuille électronique</option>
+                <option>Carte cadeau</option>
+              </select>
+            </div>
+            <div id="payout-error" class="error-text hide"></div>
+            <button class="btn btn-primary btn-block" type="submit">Demander le retrait</button>
+          </form>
+        </div>
+        <div class="card mt-2">
+          <h3 style="font-size:1rem">Bon à savoir</h3>
+          <ul class="small muted" style="padding-left:1.1em;margin-bottom:0">
+            <li>100 crédits = 1,00 €</li>
+            <li>Virement SEPA sous 2 à 5 jours ouvrés</li>
+            <li>Récapitulatif annuel disponible pour votre déclaration</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="brand" href="index.html">
+          <span class="brand-mark" aria-hidden="true">T</span><span>Tacheo</span>
+        </a>
+        <p class="small mt-2">Plateforme de micro-tâches rémunérées en français. Des missions courtes,
+        des consignes claires, des paiements suivis.</p>
+      </div>
+      <div>
+        <h4>Plateforme</h4>
+        <ul class="footer-list">
+          <li><a href="index.html#methode">Comment ça marche</a></li>
+          <li><a href="missions.html">Types de missions</a></li>
+          <li><a href="index.html#avantages">Avantages</a></li>
+          <li><a href="faq.html">Questions fréquentes</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Compte</h4>
+        <ul class="footer-list">
+          <li><a href="inscription.html">Déposer une candidature</a></li>
+          <li><a href="connexion.html">Se connecter</a></li>
+          <li><a href="compte.html">Mon espace</a></li>
+          <li><a href="contact.html">Nous écrire</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Informations légales</h4>
+        <ul class="footer-list">
+          <li><a href="cgu.html">Conditions d'utilisation</a></li>
+          <li><a href="cgv.html">Conditions de vente</a></li>
+          <li><a href="confidentialite.html">Confidentialité</a></li>
+          <li><a href="mentions-legales.html">Mentions légales</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span data-year>2026</span> Tacheo — Tous droits réservés.</span>
+      <span>Projet de démonstration, sans lien avec microtaches.com. Aucun paiement réel n'est encaissé.</span>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/portefeuille.js"></script>
+</body>
+</html>

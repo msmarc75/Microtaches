@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /compte.html
+Disallow: /taches.html
+Disallow: /tache.html
+Disallow: /portefeuille.html
+Disallow: /activation.html
+
+Sitemap: https://msmarc75.github.io/Microtaches/sitemap.xml
