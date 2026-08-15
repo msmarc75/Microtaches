@@ -99,8 +99,21 @@ Le site est une démonstration front-end. Trois points sont à traiter pour un u
 
 ## Publication
 
-Le site est publié par GitHub Pages depuis la branche `claude/microtaches-site-full-0p25st`,
-à la racine du dépôt. Le fichier `.nojekyll` évite tout filtrage des fichiers par Jekyll.
+Le site est servi par GitHub Pages directement depuis la branche
+`claude/microtaches-site-full-0p25st`, à la racine du dépôt. Le fichier `.nojekyll` évite
+tout filtrage des fichiers par Jekyll.
+
+Réglage à effectuer une seule fois, dans **Settings → Pages** du dépôt :
+
+- *Source* : « Deploy from a branch »
+- *Branch* : `claude/microtaches-site-full-0p25st`, dossier `/ (root)`
+
+Le site est alors accessible sur <https://msmarc75.github.io/Microtaches/>, et chaque push
+sur la branche le met à jour. Aucun déploiement par GitHub Actions n'est nécessaire ; le
+workflow `.github/workflows/verification.yml` se contente de contrôler, à chaque push, que
+les pages publiées correspondent à `build.py`, qu'aucune mention tarifaire n'apparaît sur
+l'accueil, que le tarif reste annoncé avant tout paiement et qu'aucun lien interne n'est
+cassé.
 
 ## Vérifications effectuées
 
