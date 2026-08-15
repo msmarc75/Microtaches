@@ -1,0 +1,50 @@
+name: Publier sur GitHub Pages
+
+# Déploiement du site statique depuis la branche de développement.
+# Pages doit être activé sur le dépôt avec la source « GitHub Actions »
+# (Settings → Pages). La création du site n'est pas tentée ici : le jeton du
+# workflow n'a pas ce droit.
+
+on:
+  push:
+    branches:
+      - claude/microtaches-site-full-0p25st
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Régénérer les pages depuis build.py
+        run: python3 build.py
+
+      - name: Vérifier que l'accueil ne mentionne aucun tarif
+        run: |
+          if grep -qiE '20,00 ?€|activation du compte' index.html; then
+            echo "La page d'accueil ne doit comporter aucune mention tarifaire." >&2
+            exit 1
+          fi
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

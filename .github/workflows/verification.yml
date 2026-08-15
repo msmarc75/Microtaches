@@ -1,0 +1,59 @@
+name: Vérification du site
+
+# GitHub Pages sert directement cette branche : le déploiement n'a pas besoin
+# d'Actions. Ce workflow contrôle seulement la cohérence de ce qui est publié.
+
+on:
+  push:
+    branches:
+      - claude/microtaches-site-full-0p25st
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verifier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Les pages publiées correspondent-elles à build.py ?
+        run: |
+          python3 build.py
+          if ! git diff --quiet; then
+            echo "Les fichiers HTML publiés diffèrent de la sortie de build.py :" >&2
+            git diff --name-only >&2
+            echo "Exécutez « python3 build.py » et committez le résultat." >&2
+            exit 1
+          fi
+
+      - name: L'accueil ne comporte aucune mention tarifaire
+        run: |
+          if grep -qiE '20,00 ?€|20 ?€|activation du compte|abonnement' index.html; then
+            echo "La page d'accueil ne doit comporter aucune mention tarifaire." >&2
+            exit 1
+          fi
+
+      - name: Le tarif reste annoncé avant tout paiement
+        run: |
+          for f in activation.html cgv.html faq.html; do
+            grep -q '20,00' "$f" || { echo "Mention tarifaire absente de $f" >&2; exit 1; }
+          done
+
+      - name: Tous les liens internes pointent vers un fichier existant
+        run: |
+          python3 - <<'PY'
+          import re, os, sys, glob
+          manquants = []
+          for page in glob.glob('*.html'):
+              for lien in re.findall(r'href="([^"#:]+\.html)', open(page, encoding='utf-8').read()):
+                  if not os.path.exists(lien):
+                      manquants.append(f'{page} -> {lien}')
+          if manquants:
+              print('Liens cassés :', *manquants, sep='\n', file=sys.stderr)
+              sys.exit(1)
+          print('Liens internes : aucun lien cassé.')
+          PY
